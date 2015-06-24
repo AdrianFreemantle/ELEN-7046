@@ -8,7 +8,7 @@ namespace MobilePoll.Application
 {
     public class ParserPipeline
     {
-        private static readonly List<QuestionParser> Pipeline = new List<QuestionParser>();
+        private static readonly List<QuestionParser> Parsers = new List<QuestionParser>();
 
         public ILocalBus Bus { get; set; }
 
@@ -23,7 +23,7 @@ namespace MobilePoll.Application
         
         public static void AddParser(QuestionParser parser)
         {
-            Pipeline.Add(parser);
+            Parsers.Add(parser);
         }
 
         public void ParseSurvey(Survey survey)
@@ -36,7 +36,7 @@ namespace MobilePoll.Application
 
         private void ParseQuestion(Guid surveyId, string surveyName, SurveyQuestion surveyQuestion)
         {
-            foreach (var questionParser in Pipeline)
+            foreach (var questionParser in Parsers)
             {
                 questionParser.Bus = Bus;
 

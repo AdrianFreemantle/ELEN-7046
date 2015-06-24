@@ -69,6 +69,7 @@
     <Compile Include="Bus\InvalidMessageTypeException.cs" />
     <Compile Include="Bus\MessageDispatcher.cs" />
     <Compile Include="Bus\InMemoryBus.cs" />
+    <Compile Include="Persistence\Mongo\IMongoCollectionUnitOfWork.cs" />
     <Compile Include="Persistence\Mongo\MongoUnitOfWork.cs" />
     <Compile Include="Persistence\Mongo\MongoRepository.cs" />
     <Compile Include="Wireup\InMemory.cs" />

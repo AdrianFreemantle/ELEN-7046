@@ -1,4 +1,5 @@
-﻿using MobilePoll.Persistence;
+﻿using System.Collections.Generic;
+using MobilePoll.Persistence;
 using MongoDB.Driver;
 
 namespace MobilePoll.Infrastructure.Persistence.Mongo
@@ -8,6 +9,8 @@ namespace MobilePoll.Infrastructure.Persistence.Mongo
         private const string ConnectionString = "mongodb://localhost:27017";
         public static bool DropDatabaseOnStartup = false;
         private readonly MongoServer server;
+        private readonly MongoDatabase mongoDatabase;
+        private readonly List<IMongoCollectionUnitOfWork> mongoUnitsOfWork = new List<IMongoCollectionUnitOfWork>();
 
         static MongoUnitOfWork()
         {
@@ -19,8 +22,6 @@ namespace MobilePoll.Infrastructure.Persistence.Mongo
                 mongoDatabase.Drop();
             }
         }
-        
-        private readonly MongoDatabase mongoDatabase;
 
         public MongoUnitOfWork()
         {
@@ -31,6 +32,11 @@ namespace MobilePoll.Infrastructure.Persistence.Mongo
 
         public void Commit()
         {
+            foreach (var uow in mongoUnitsOfWork)
+            {
+                uow.Commit();
+            }
+
             server.Disconnect();
         }
 
@@ -43,7 +49,10 @@ namespace MobilePoll.Infrastructure.Persistence.Mongo
         {
             MongoCollection<TEntity> mongoCollection = mongoDatabase.GetCollection<TEntity>(typeof(TEntity).Name);
 
-            return new MongoRepository<TEntity>(mongoCollection);
+            var repository = new MongoRepository<TEntity>(mongoCollection);
+            mongoUnitsOfWork.Add(repository);
+
+            return repository;
         }
     }
 }

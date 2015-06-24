@@ -9,8 +9,9 @@ using MongoDB.Driver.Linq;
 
 namespace MobilePoll.Infrastructure.Persistence.Mongo
 {
-    public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class MongoRepository<TEntity> : IMongoCollectionUnitOfWork, IRepository<TEntity> where TEntity : class
     {
+        private readonly List<TEntity> updatedEntities = new List<TEntity>();        
         private readonly MongoCollection<TEntity> mongoCollection;
 
         public Expression Expression { get { return mongoCollection.AsQueryable().Expression; } }
@@ -44,14 +45,22 @@ namespace MobilePoll.Infrastructure.Persistence.Mongo
 
         public TEntity Add(TEntity newEntity)
         {
-            mongoCollection.Save(newEntity);
+            updatedEntities.Add(newEntity);
             return newEntity;
         }
 
         public TEntity Update(TEntity entity)
         {
-            mongoCollection.Save(entity);
+            updatedEntities.Add(entity);
             return entity;
+        }
+
+        void IMongoCollectionUnitOfWork.Commit()
+        {
+            foreach (var updatedEntity in updatedEntities)
+            {
+                mongoCollection.Save(updatedEntity);
+            }
         }
 
         public void Remove(TEntity entity)
