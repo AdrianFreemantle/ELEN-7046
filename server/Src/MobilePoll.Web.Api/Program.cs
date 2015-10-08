@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Threading;
 using Microsoft.Owin.Hosting;
 using MobilePoll.Infrastructure.Persistence.Mongo;
 using MobilePoll.Web.Api.Wireup;
@@ -41,6 +42,7 @@ namespace MobilePoll.Web.Api
 
                     if (keyPress.KeyChar == 'x' || keyPress.KeyChar == 'X')
                     {
+                        Thread.SpinWait(10);
                         break;
                     }
                 } while (true);

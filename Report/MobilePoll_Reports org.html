@@ -111,14 +111,13 @@
 		</div>			
 		<script>
 			function generateReportsFunction() {
-			//$.getJSON("http://localhost:9000/api/Report", function(data){
 			$.getJSON("http://msi:9000/api/Report", function(data){
 					var yesnoData = data.YesNoReport;
 					var multipleoptionData = data.MultipleOptionReport;
 					var freeformData = data.FreeFormReport;
 										
 					var barChartGenderData = {
-						labels : ["Male", "Female"],
+						labels : ["Male", "Female", "Transgender"],
 						datasets : [
 							{
 								label: "What is your Gender?",
@@ -126,9 +125,7 @@
 								strokeColor : "rgba(220,0,0,0.8)",
 								highlightFill: "rgba(220,0,0,0.75)",
 								highlightStroke: "rgba(220,0,0,1)",
-								data : [
-								multipleoptionData[2].SelectedOptions[0].Value, 
-								multipleoptionData[2].SelectedOptions[1].Value],
+								data : [multipleoptionData[2].SelectedOptions[0].Value, multipleoptionData[2].SelectedOptions[1].Value, multipleoptionData[2].SelectedOptions[2].Value],
 							}
 						]
 					}
@@ -142,11 +139,7 @@
 								strokeColor : "rgba(0,220,0,0.8)",
 								highlightFill: "rgba(0,220,0,0.75)",
 								highlightStroke: "rgba(0,220,0,1)",
-								data : [
-								multipleoptionData[0].SelectedOptions[0].Value, 
-								multipleoptionData[0].SelectedOptions[1].Value, 
-								multipleoptionData[0].SelectedOptions[2].Value, 
-								multipleoptionData[0].SelectedOptions[3].Value],
+								data : [multipleoptionData[0].SelectedOptions[0].Value, multipleoptionData[0].SelectedOptions[1].Value, multipleoptionData[0].SelectedOptions[2].Value, multipleoptionData[0].SelectedOptions[3].Value],
 							}
 						]
 					}
@@ -160,16 +153,7 @@
 								strokeColor : "rgba(0,0,220,0.8)",
 								highlightFill: "rgba(0,0,220,0.75)",
 								highlightStroke: "rgba(0,0,220,1)",
-								data : [
-								multipleoptionData[6].SelectedOptions[0].Value, 
-								multipleoptionData[6].SelectedOptions[1].Value, 
-								multipleoptionData[6].SelectedOptions[2].Value, 
-								multipleoptionData[6].SelectedOptions[3].Value, 
-								multipleoptionData[6].SelectedOptions[4].Value, 
-								multipleoptionData[6].SelectedOptions[5].Value, 
-								multipleoptionData[6].SelectedOptions[6].Value, 
-								multipleoptionData[6].SelectedOptions[7].Value,
-								multipleoptionData[6].SelectedOptions[8].Value],
+								data : [multipleoptionData[6].SelectedOptions[0].Value, multipleoptionData[6].SelectedOptions[1].Value, multipleoptionData[6].SelectedOptions[2].Value, multipleoptionData[6].SelectedOptions[3].Value, multipleoptionData[6].SelectedOptions[4].Value, multipleoptionData[6].SelectedOptions[5].Value, multipleoptionData[6].SelectedOptions[6].Value, multipleoptionData[6].SelectedOptions[7].Value,multipleoptionData[6].SelectedOptions[8].Value],
 							}
 						]
 					}
@@ -198,11 +182,7 @@
 								strokeColor : "rgba(110,0,220,0.8)",
 								highlightFill: "rgba(110,0,220,0.75)",
 								highlightStroke: "rgba(110,0,220,1)",
-								data : [
-								multipleoptionData[1].SelectedOptions[0].Value, 
-								multipleoptionData[1].SelectedOptions[1].Value, 
-								multipleoptionData[1].SelectedOptions[2].Value, 
-								multipleoptionData[1].SelectedOptions[3].Value],
+								data : [multipleoptionData[1].SelectedOptions[0].Value, multipleoptionData[1].SelectedOptions[1].Value, multipleoptionData[1].SelectedOptions[2].Value, multipleoptionData[1].SelectedOptions[3].Value],
 							}
 						]
 					}
@@ -216,14 +196,7 @@
 								strokeColor : "rgba(0,110,110,0.8)",
 								highlightFill: "rgba(0,110,110,0.75)",
 								highlightStroke: "rgba(0,110,110,1)",
-								data : [
-								multipleoptionData[5].SelectedOptions[0].Value, 
-								multipleoptionData[5].SelectedOptions[1].Value, 
-								multipleoptionData[5].SelectedOptions[2].Value, 
-								multipleoptionData[5].SelectedOptions[3].Value, 
-								multipleoptionData[5].SelectedOptions[4].Value, 
-								multipleoptionData[5].SelectedOptions[5].Value
-								],
+								data : [multipleoptionData[5].SelectedOptions[0].Value, multipleoptionData[5].SelectedOptions[1].Value, multipleoptionData[5].SelectedOptions[2].Value, multipleoptionData[5].SelectedOptions[3].Value, multipleoptionData[5].SelectedOptions[5].Value],
 							}
 						]
 					}
@@ -237,36 +210,24 @@
 								strokeColor : "rgba(0,110,0,0.8)",
 								highlightFill: "rgba(0,110,0,0.75)",
 								highlightStroke: "rgba(0,110,0,1)",
-								data : [
-								multipleoptionData[4].SelectedOptions[0].Value, 
-								multipleoptionData[4].SelectedOptions[1].Value, 
-								multipleoptionData[4].SelectedOptions[2].Value, 
-								multipleoptionData[4].SelectedOptions[3].Value, 
-								multipleoptionData[4].SelectedOptions[4].Value
+								data : [multipleoptionData[4].SelectedOptions[0].Value, multipleoptionData[4].SelectedOptions[1].Value, multipleoptionData[4].SelectedOptions[2].Value, multipleoptionData[4].SelectedOptions[3].Value, multipleoptionData[4].SelectedOptions[4].Value
 								],
 							}
 						]
 					}
 					
 					var ctx4 = new Chart(document.getElementById("canvasMultipleOptionReport2").getContext("2d")).Bar(barChartGenderData);
-					
 					var ctx2 = new Chart(document.getElementById("canvasMultipleOptionReport1").getContext("2d")).Bar(barChartEthnicGroupData);
-					
 					var ctx5 = new Chart(document.getElementById("canvasMultipleOptionReport3").getContext("2d")).Bar(barChartProvinceData);
-					
 					var ctx1 = new Chart(document.getElementById("canvasYesNoReport1").getContext("2d")).Doughnut(doughnutYesNoVisitData,
 					{
 						legendTemplate : "<ul style=\"list-style-type: none;\" class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
 					}
 					);
 					document.getElementById("legendYesNoReport1").innerHTML = ctx1.generateLegend();
-					
 					var ctx6 = new Chart(document.getElementById("canvasMultipleOptionReport4").getContext("2d")).Bar(barChartFrequencyData);
-					
 					var ctx7 = new Chart(document.getElementById("canvasMultipleOptionReport5").getContext("2d")).Bar(barChartProblemsData);
-					
 					var ctx8 = new Chart(document.getElementById("canvasMultipleOptionReport6").getContext("2d")).Bar(barChartRatingsData);
-
 					});
 			}
 		</script>

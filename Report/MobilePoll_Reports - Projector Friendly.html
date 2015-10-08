@@ -119,7 +119,7 @@
 					var freeformData = data.FreeFormReport;
 										
 					var barChartGenderData = {
-						labels : ["Male", "Female"],
+						labels : ["Male", "Female", "Transgender"],
 						datasets : [
 							{
 								label: "What is your Gender?",
@@ -129,7 +129,8 @@
 								highlightStroke: "rgba(220,0,0,1)",
 								data : [
 								multipleoptionData[2].SelectedOptions[0].Value, 
-								multipleoptionData[2].SelectedOptions[1].Value],
+								multipleoptionData[2].SelectedOptions[1].Value,
+								multipleoptionData[2].SelectedOptions[2].Value],
 							}
 						]
 					}
